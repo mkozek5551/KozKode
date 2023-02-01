@@ -2,16 +2,19 @@ const catButton = document.querySelector("#cat-button");
 const dogButton = document.querySelector("#dog-button");
 const imageContainer = document.querySelector("#image-container");
 
-catButton.addEventListener("click", function() {
-  fetch("https://cataas.com/cat")
-    .then(response => {
-      return response.blob();
+catButton.addEventListener("click", () => {
+  fetch("https://aws.random.cat/meow")
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      const imgUrl = data.file;
+      imageContainer.innerHTML = `<img src="${imgUrl}" class="image">`;
     })
-    .then(imageBlob => {
-      const imageUrl = URL.createObjectURL(imageBlob);
-      imageContainer.innerHTML = `<img src="${imageUrl}" class="image">`;
-    });
+    .catch(error => console.error(error));
 });
+
+
+
 
 dogButton.addEventListener("click", function() {
   fetch("https://dog.ceo/api/breeds/image/random")
