@@ -1,23 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FieldGuide CRM — Simple Web Demo</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-<header>
-    <img src="logo.PNG" alt="Logo">
-</header>
+    <header class="top-bar">
+      <h1>FieldGuide CRM</h1>
+      <p class="tagline">Friendly follow-up tracker for seasoned dealmakers.</p>
+    </header>
 
-    <section id="image-section">
-      <div id="image-container"></div>
-      <div id="buttons-container">
-        <button id="cat-button">Generate Cat</button>
-        <button id="dog-button">Generate Dog</button>
-      </div>
-    </section>
-    <script type="text/javascript" src="script.js"></script>
+    <main class="layout">
+      <section class="panel" aria-labelledby="add-lead-heading">
+        <h2 id="add-lead-heading">Add a lead</h2>
+        <form id="lead-form" class="lead-form">
+          <label>
+            Lead name <span class="required">*</span>
+            <input type="text" id="lead-name" required />
+          </label>
+          <label>
+            Contact email
+            <input type="email" id="lead-email" placeholder="agent@example.com" />
+          </label>
+          <label>
+            Contact phone
+            <input type="tel" id="lead-phone" placeholder="(555) 123-4567" />
+          </label>
+          <label>
+            Source
+            <input type="text" id="lead-source" placeholder="Referral, event, etc." />
+          </label>
+          <label>
+            Lead value
+            <input type="number" id="lead-value" min="0" step="1000" placeholder="Optional" />
+          </label>
+          <label>
+            Notes
+            <textarea id="lead-notes" rows="3" placeholder="Relationship details or next steps"></textarea>
+          </label>
+          <label>
+            Next follow-up date
+            <input type="date" id="lead-followup" />
+          </label>
+          <button type="submit" class="primary">Save lead</button>
+          <p id="lead-feedback" role="status" class="muted"></p>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="today-heading">
+        <h2 id="today-heading">Today&apos;s follow-ups</h2>
+        <p id="today-summary" class="muted"></p>
+        <ul id="today-list" class="list"></ul>
+      </section>
+
+      <section class="panel" aria-labelledby="pipeline-heading">
+        <h2 id="pipeline-heading">Pipeline</h2>
+        <div class="pipeline-tools">
+          <label>
+            Status filter
+            <select id="status-filter">
+              <option value="all">All leads</option>
+              <option value="open">Open</option>
+              <option value="won">Won</option>
+              <option value="lost">Lost</option>
+              <option value="hold">On hold</option>
+            </select>
+          </label>
+          <label>
+            Search
+            <input id="search" type="search" placeholder="Name, source, note" />
+          </label>
+        </div>
+        <table class="pipeline-table">
+          <thead>
+            <tr>
+              <th scope="col">Lead</th>
+              <th scope="col">Status</th>
+              <th scope="col">Source</th>
+              <th scope="col">Next follow-up</th>
+              <th scope="col">Value</th>
+              <th scope="col" class="actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="pipeline-body"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <template id="lead-row-template">
+      <tr>
+        <th scope="row" class="lead-name"></th>
+        <td class="lead-status"></td>
+        <td class="lead-source"></td>
+        <td class="lead-next"></td>
+        <td class="lead-value"></td>
+        <td class="lead-actions"></td>
+      </tr>
+    </template>
+
+    <template id="followup-item-template">
+      <li class="followup-card">
+        <h3 class="followup-name"></h3>
+        <p class="followup-note"></p>
+        <div class="followup-actions"></div>
+      </li>
+    </template>
+
+    <script src="script.js" defer></script>
   </body>
 </html>
